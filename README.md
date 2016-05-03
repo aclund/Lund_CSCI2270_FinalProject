@@ -4,8 +4,8 @@ Project Summary:
 My project is an extension on Assignment 5 that focused on queues. 
 In addition to the dequeue, enqueue, and print operations, I added 
 a queue size input, an alphebetizier for alphebetical and reverse 
-alphebetical order, and a dequeue operation for specific inputed 
-words.
+alphebetical order, a dequeue operation for specific inputed 
+words, a head modifier, and a clear option.
 
 How to Run:
 First you have to set the queue size that you wish to work with. 
@@ -24,5 +24,4 @@ Group Members/Contributers:
 None
 
 Open Issues/bugs:
-Currently the specific word dequeue operation is not fully 
-funcional.
+Fully funcional.
