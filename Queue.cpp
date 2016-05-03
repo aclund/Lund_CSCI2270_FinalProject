@@ -14,28 +14,40 @@ Queue::Queue(int qs)
 
 Queue::~Queue()
 {
-    //dtor
     delete []arrayQueue;
 }
 
 
-void Queue::enqueue(string word){
-    arrayQueue[queueTail] = word;
-    if(queueTail == queueSize-1){
-        queueTail = 0;
-    }else{
-        queueTail++;
+void Queue::enqueue(string word)
+{
+    if (!queueIsFull())
+    {
+        arrayQueue[queueTail] = word;
+        if(queueTail == queueSize-1 && !queueIsFull())
+        {
+            queueTail = 0;
+        }
+        else
+        {
+            queueTail++;
+        }
+        cout<<"E: "<<word<<endl;
+        cout<<"H: "<<queueHead<<endl;
+        cout<<"T: "<<queueTail<<endl;
+        queueCount++;
     }
-    cout<<"E: "<<word<<endl;
-    cout<<"H: "<<queueHead<<endl;
-    cout<<"T: "<<queueTail<<endl;
-    queueCount++;
+    else
+        cout<<"Queue is full!"<<endl;
 }
-string Queue::dequeue(){
+string Queue::dequeue()
+{
     string word = arrayQueue[queueHead];
-    if(queueHead == queueSize-1){
+    if(queueHead == queueSize-1)
+    {
         queueHead = 0;
-    }else{
+    }
+    else
+    {
         queueHead++;
     }
 
@@ -45,7 +57,8 @@ string Queue::dequeue(){
     return word;
 }
 
-void Queue::printQueue(){
+void Queue::printQueue()
+{
     int current = queueHead;
     int count = queueCount;
     if (queueCount > 0)
@@ -64,14 +77,16 @@ void Queue::printQueue(){
         cout << "Empty" << endl;
 }
 /* Returns true if the queue is full, false otherwise */
-bool Queue::queueIsFull(){
+bool Queue::queueIsFull()
+{
     if (queueCount == queueSize)
         return true;
     return false;
 }
 
 /* Returns true if the queue is full, false otherwise */
-bool Queue::queueIsEmpty(){
+bool Queue::queueIsEmpty()
+{
     if (queueCount == 0)
         return true;
     return false;
@@ -79,9 +94,9 @@ bool Queue::queueIsEmpty(){
 
 void Queue::alphabetize()
 {
-    if (queueHead!=queueTail)
+    if (!queueIsEmpty())
     {
-        sort(arrayQueue,arrayQueue + queueCount);
+        sort(arrayQueue+queueHead,arrayQueue + queueTail);
     }
     else
         cout<<"Empty"<<endl;
@@ -90,10 +105,10 @@ void Queue::alphabetize()
 
 void Queue::reverseAlphabetize()
 {
-    if (queueHead!=queueTail)
+    if (!queueIsEmpty())
     {
-        sort(arrayQueue,arrayQueue + queueCount);
-        reverse(arrayQueue,arrayQueue + queueCount);
+        sort(arrayQueue+queueHead,arrayQueue + queueTail);
+        reverse(arrayQueue+queueHead,arrayQueue + queueTail);
     }
     else
         cout<<"Empty"<<endl;
@@ -106,26 +121,37 @@ void Queue::dequeueword(string word)
     {
         bool found = false;
         int current=queueHead;
-        for (int I=current;I<queueTail;I++)
+        for (int I=current; I<queueTail; I++)
         {
             if (arrayQueue[I]==word)
             {
                 found=true;
                 if (word==arrayQueue[queueHead])
                 {
-                    if(queueHead == queueSize-1){
-                    queueHead = 0;
+                    if(queueHead == queueSize-1 && !queueIsFull())
+                    {
+                        queueHead = 0;
+                    }
+                    else
+                    {
+                        queueHead++;
+                    }
+                    queueCount--;
+
+
+                }
+                else if (word==arrayQueue[queueTail-1])
+                {
+                    queueTail--;
+                    queueCount--;
                 }
                 else
                 {
-                    queueHead++;
-                }
-                queueCount--;
-                }
-                else if (word==arrayQueue[queueTail])
-                {
+                    for (int i=I; i<queueTail; i++)//shift elements to fill gap
+                        arrayQueue[i]=arrayQueue[i+1];
                     queueCount--;
                 }
+                queueTail--;
             }
         }
         if (!found)
@@ -137,5 +163,34 @@ void Queue::dequeueword(string word)
     {
         cout<<"Queue is empty!"<<endl;
     }
+    return;
+}
+
+void Queue::assignHead(string word)
+{
+    if (!queueIsEmpty())
+    {
+        bool found = false;
+        int current=queueHead;
+        for (int I=current; I<queueTail; I++)
+        {
+            if (arrayQueue[I]==word)
+            {
+                found=true;
+                queueHead=I;//new head
+                queueCount=queueCount-I;
+            }
+        }
+        if (!found)
+            cout<<word<<" not found!"<<endl;
+    }
+    else
+        cout<<"Queue is empty!"<<endl;
+    return;
+}
+
+void Queue::emptyit()
+{
+    queueHead=queueTail=queueCount=0;//reset queue
     return;
 }
