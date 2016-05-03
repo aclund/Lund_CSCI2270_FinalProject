@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     string start;
-    cout<<"Welcome! This program takes user input to preform variations of queue operands."<<endl;
+    cout<<"Welcome! This program takes user input to preform variations on queue operands."<<endl;
     int qsize;
     cout<<"Set queue size: ";
     cin>>qsize;//user input to set the size of the queue
@@ -22,8 +22,10 @@ int main()
         cout<<"4. Enqueue sentence"<<endl;
         cout<<"5. Alphabetize queue"<<endl;
         cout<<"6. Reverse alphabetical order"<<endl;
-        cout<<"7. Dequeue word"<<endl;
-        cout<<"8. Quit"<<endl;
+        cout<<"7. Dequeue word and shift gaps"<<endl;
+        cout<<"8: Assign head"<<endl;
+        cout<<"9. Empty queue"<<endl;
+        cout<<"10. Quit"<<endl;
         cin>>n;//get user input for main menu
         if (n==1)
         {
@@ -76,6 +78,20 @@ int main()
             cout<<"Enter a word to dequeue: ";
             cin>>word;
             q.dequeueword(word);
+        }
+        else if (n==8)
+        {
+            n=0;
+            string word;
+            bool save;
+            cout<<"Enter new head of queue: ";
+            cin>>word;
+            q.assignHead(word);
+        }
+        else if (n==9)
+        {
+            n=0;
+            q.emptyit();
         }
         else
         {
