@@ -16,6 +16,8 @@ public:
     bool queueIsFull(); //send when full
     bool queueIsEmpty(); //send when empty
     void dequeueword(std::string);
+    void assignHead(std::string);
+    void emptyit();
 protected:
 private:
     int queueSize;
