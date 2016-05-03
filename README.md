@@ -24,4 +24,6 @@ Group Members/Contributers:
 None
 
 Open Issues/bugs:
-Fully funcional.
+Specific word dequeue operation is now fully funcional. I had to 
+change it to shift the queue to fill gaps for words in the middle of
+the queue. 
